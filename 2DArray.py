@@ -1,6 +1,3 @@
-from lib2to3.pgen2.token import MINUS
-from tkinter import HORIZONTAL
-
 
 Array = [
 [1,2,3,4,5],
