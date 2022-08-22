@@ -74,3 +74,51 @@
 ########################################################
 ########################################################
 ########################################################
+# A compnay has n employees with unique IDs from 0 to n-1
+# the head of the company has ID headID
+# you will receive a managers arrays where managers[i] is the
+# ID of the manager for employee i. Each employee has one 
+# direct manager. the compnay head has no managers(managers[headID]= -1)
+# it's guranteed the subordination relationships will have a tree structure.
+
+# the head dof the compnay wants to inform their direct 
+# subordinates who will inform his direct subordinates 
+# who will inform their direct subordinates and so on until 
+# everyone knows the news
+# you will recieve an inform_time array where informTime[i]
+# is the time it takes for employee i to inform all their direct 
+# subordinates. return the total number f minutes it takes to 
+# inform all employees of the new 
+
+managers = [2,2,4,6,-1,4,4,5]
+inform_time = [0,0,4,0,7,3,6,0]
+
+### creating adjacent list with dict 
+graph = {}
+for i in range(len(managers)):
+    if managers[i] not in graph.keys():
+        graph[managers[i]] = [i]
+    else:
+        graph[managers[i]].append(i)
+
+# Unsing BFS lvl order traversal 
+head = graph[-1]
+q = []
+q.extend(head)
+time = 0 
+while len(q):
+    curr_time = 0 
+    l = len(q)
+    count = 0 
+    while count < l :
+        vertex = q.pop(0)
+        curr_time = max(curr_time, inform_time[vertex])
+        if vertex in graph.keys():
+            q.extend(graph[vertex])
+        count += 1
+    time += curr_time
+
+
+print(time)
+
+
